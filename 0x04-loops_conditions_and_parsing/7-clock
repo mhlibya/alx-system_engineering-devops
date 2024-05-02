@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# prints a string 10 times using while loop and on the ninth iteration it prints hi
+
+h=0
+
+while [ $h -le 12 ]; do
+echo "Hour: $h"
+m=1
+while [ $m -lt 60 ]; do
+echo "$m"
+((m++))
+done
+((h++))
+done
