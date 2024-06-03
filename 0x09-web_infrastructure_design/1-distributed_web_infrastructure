@@ -1,0 +1,31 @@
+Load Balancer (HAproxy):
+
+Role: Distributes incoming traffic across multiple servers to ensure no single server is overwhelmed.
+Distribution Algorithm: Round Robin - sends requests sequentially to each server in the list, balancing the load evenly.
+Active-Active Setup: Both web servers handle requests simultaneously, providing load distribution and redundancy.
+Active-Passive Difference: In Active-Active, all servers are active and handle traffic. In Active-Passive, only one server handles traffic while the other remains on standby.
+Two Web Servers (Nginx):
+
+Role: Each web server handles incoming HTTP requests, serves static content, and forwards dynamic requests to the application server.
+Why Added: Increases redundancy and load-handling capacity, reducing the risk of downtime.
+Application Server:
+
+Role: Processes application logic and interacts with the database.
+Why Added: Separates concerns, improving performance and maintainability.
+Database (MySQL Primary-Replica Cluster):
+
+Role: Primary node handles all write operations and synchronization to Replica nodes. Replica nodes can handle read requests.
+Primary vs. Replica:
+Primary: Handles read and write operations, data is updated here first.
+Replica: Handles read-only operations, receives data updates from the Primary.
+Issues with This Infrastructure:
+Single Point of Failure (SPOF):
+
+Remaining SPOF: Load balancer is a single point of failure. If it fails, no traffic can reach the servers.
+Security Issues:
+
+Lack of Firewall: No protection against unauthorized access and attacks.
+No HTTPS: Data is transmitted in plaintext, vulnerable to interception.
+No Monitoring:
+
+Issue: Without monitoring, it's difficult to detect and respond to performance issues, downtime, or attacks.

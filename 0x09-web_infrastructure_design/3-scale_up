@@ -1,0 +1,58 @@
+Load Balancer Cluster (HAproxy):
+
+Role: Distributes incoming traffic across multiple servers to ensure no single server is overwhelmed. Configured in a cluster for redundancy.
+Distribution Algorithm: Round Robin - sequentially distributes requests to each server in the list, balancing the load evenly.
+Active-Active Setup: Both load balancers handle requests simultaneously, providing load distribution and redundancy.
+Why Added: Increases availability and fault tolerance by having a redundant load balancer.
+Three Dedicated Servers:
+
+Web Server (Nginx):
+Role: Handles incoming HTTPS requests, serves static content, and forwards dynamic requests to the application server.
+Why Added: Separates web server responsibilities from application and database servers, improving performance and manageability.
+Application Server:
+Role: Processes application logic and interacts with the database.
+Why Added: Separates application processing from web serving and database management, enhancing performance and scalability.
+Database Server (MySQL Primary-Replica Cluster):
+Role: Primary node handles all write operations and synchronization to Replica nodes. Replica nodes can handle read requests.
+Primary vs. Replica:
+Primary: Handles read and write operations, data is updated here first.
+Replica: Handles read-only operations, receives data updates from the Primary.
+Why Added: Separates database management from web and application servers, improving performance and data integrity.
+Firewalls:
+
+Role: Protects each server by controlling incoming and outgoing network traffic based on predetermined security rules.
+Why Added: Enhances security by preventing unauthorized access and attacks on the servers.
+SSL Certificate:
+
+Role: Encrypts traffic between the user's browser and the server to protect data in transit.
+Why Added: Ensures that data is transmitted securely over HTTPS, protecting against eavesdropping and man-in-the-middle attacks.
+Monitoring Clients:
+
+Role: Collects data on server performance and health metrics, sending it to a monitoring service (e.g., Sumologic).
+Why Added: Enables real-time monitoring and alerting for server performance, helping to identify and address issues quickly.
+Issues with This Infrastructure:
+Terminating SSL at the Load Balancer Level:
+
+Issue: Decrypting HTTPS traffic at the load balancer and forwarding it as HTTP to the web servers can expose data in internal network traffic.
+Solution: Use end-to-end encryption by maintaining HTTPS traffic between the load balancer and the web servers.
+Single MySQL Server for Writes:
+
+Issue: Only one server can handle write operations, which can become a bottleneck.
+Solution: Implement MySQL clustering or sharding to distribute write load.
+Homogeneous Servers:
+
+Issue: If all servers have the same components (database, web server, and application server), it can lead to resource contention and complexity.
+Solution: Separate roles more clearly, e.g., dedicated database servers, web servers, and application servers.
+Monitoring:
+Purpose: Monitoring tracks server performance, health, and traffic, providing insights and alerts for potential issues.
+Data Collection: Monitoring clients on each server collect metrics (CPU usage, memory, disk I/O, QPS) and send data to a central monitoring service.
+Monitoring Web Server QPS:
+How-To: Configure the monitoring client to track the number of requests per second handled by Nginx, and set up alerts for abnormal spikes or drops.
+Summary:
+This infrastructure uses a load balancer cluster and three dedicated servers to host the website www.foobar.com, adding security and monitoring components. It includes firewalls for protection, an SSL certificate for encrypted traffic, and monitoring clients for performance tracking. This setup improves security, monitoring, load distribution, and separation of concerns, enhancing the overall performance and reliability of the infrastructure.
+
+
+
+
+
+

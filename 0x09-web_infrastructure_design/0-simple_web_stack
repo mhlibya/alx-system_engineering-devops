@@ -1,0 +1,36 @@
+Server:
+
+Definition: A machine providing resources/services over a network.
+Role: Hosts web server, application server, application files, and database.
+Domain Name:
+
+Role: Translates www.foobar.com to the server's IP address.
+DNS Record:
+
+Type: CNAME or A record for www.foobar.com.
+Role: Points to server IP 8.8.8.8.
+Nginx Web Server:
+
+Role: Handles HTTP requests, serves static content, forwards dynamic requests.
+Application Server:
+
+Role: Processes logic, handles dynamic content, interacts with the database.
+Application Files:
+
+Role: Contains website code (HTML, CSS, JS, server-side scripts).
+MySQL Database:
+
+Role: Stores structured data for the application.
+Communication Protocol:
+
+Role: Uses HTTP/HTTPS to communicate with the user's browser.
+Infrastructure Issues:
+SPOF (Single Point of Failure):
+
+If the server fails, the entire site goes down.
+Downtime During Maintenance:
+
+Updates or restarts cause temporary unavailability.
+Scalability:
+
+One server cannot handle high traffic, leading to slowdowns or crashes.
